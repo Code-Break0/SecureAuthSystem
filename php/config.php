@@ -1,10 +1,10 @@
 <?php
 
 	// Database Credentials
-	define("DB_HOST", 'localhost');
-	define("DB_DATABASE", 'yt');
-	define("DB_USERNAME", 'root');
-	define("DB_PASSWORD", 'root');
+	define("DB_HOST", '<your database hostname>');
+	define("DB_DATABASE", '<your database name>');
+	define("DB_USERNAME", '<your database username>');
+	define("DB_PASSWORD", '<your database password>');
 
 	// Email Credentials
 	define("SMTP_HOST", 'mail.mydomain.com');
@@ -12,7 +12,7 @@
 	define("SMTP_USERNAME", 'name@mydomain.com');
 	define("SMTP_PASSWORD", '<my password>');
 	define("SMTP_FROM", 'noreply@mydomain.com');
-	define("SMTP_FROM_NAME", 'Code Break');
+	define("SMTP_FROM_NAME", '<your name>');
 
 	// Global Variables
 	define("MAX_LOGIN_ATTEMPTS_PER_HOUR", 5);
