@@ -3,6 +3,7 @@
 
 	$errors = [];
 
+
 	if(!isset($_POST['name']) || strlen($_POST['name']) > 255 || !preg_match('/^[a-zA-Z- ]+$/', $_POST['name'])) {
 		$errors[] = 1;
 	}
@@ -22,31 +23,37 @@
 
 
 	if(count($errors) === 0) {
-		//Connect to database
-		$C = connect();
-		if($C) {
-			//Check if user with same email already exists
-			$res = sqlSelect($C, 'SELECT id FROM users WHERE email=?', 's', $_POST['email']);
-			if($res && $res->num_rows === 0) {
-				//Actually create the account
-				$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-				$id = sqlInsert($C, 'INSERT INTO users VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['name'], $_POST['email'], $hash);
-				if($id !== -1) {
-					$errors[] = 0;
+		if(isset($_POST['csrf_token']) && validateToken($_POST['csrf_token'])) {
+			//Connect to database
+			$C = connect();
+			if($C) {
+				//Check if user with same email already exists
+				$res = sqlSelect($C, 'SELECT id FROM users WHERE email=?', 's', $_POST['email']);
+				if($res && $res->num_rows === 0) {
+					//Actually create the account
+					$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+					$id = sqlInsert($C, 'INSERT INTO users VALUES (NULL, ?, ?, ?, 0)', 'sss', $_POST['name'], $_POST['email'], $hash);
+					if($id !== -1) {
+						$errors[] = 0;
+					}
+					else {
+						//Failed to insert into database
+						$errors[] = 6;
+					}
 				}
 				else {
-					//Failed to insert into database
-					$errors[] = 6;
+					//This email is already in use
+					$errors[] = 7;
 				}
 			}
 			else {
-				//This email is already in use
-				$errors[] = 7;
+				//Failed to connect to database
+				$errors[] = 8;
 			}
 		}
 		else {
-			//Failed to connect to database
-			$errors[] = 8;
+			//Invalid CSRF Token
+			$errors[] = 9;
 		}
 	}
 
