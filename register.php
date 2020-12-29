@@ -1,9 +1,10 @@
-<?php require_once 'php/config.php'; ?>
+<?php require_once 'php/utils.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<base href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/" />
 	<meta charset="UTF-8">
+	<meta name="csrf_token" content="<?php echo createToken(); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Register - Secure Site</title>
 	<link rel="stylesheet" href="style.css" />
