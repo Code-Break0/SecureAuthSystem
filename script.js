@@ -1,4 +1,5 @@
 
+
 // global functions
 function request(url, data, callback) {
 	var xhr = new XMLHttpRequest();
@@ -14,7 +15,15 @@ function request(url, data, callback) {
 			loader.remove();
 		}
 	});
-	xhr.send(data ? (data instanceof FormData ? data : new FormData(document.querySelector(data))) : undefined);
+
+	var formdata = data ? (data instanceof FormData ? data : new FormData(document.querySelector(data))) : new FormData();
+
+	var csrfMetaTag = document.querySelector('meta[name="csrf_token"]');
+	if(csrfMetaTag) {
+		formdata.append('csrf_token', csrfMetaTag.getAttribute('content'));
+	}
+
+	xhr.send(formdata);
 }
 
 
@@ -66,6 +75,9 @@ function register() {
 						break;
 					case 8:
 						document.getElementById('errs').innerHTML += '<div class="err">Failed to connect to the database. Please try again later.</div>';
+						break;
+					case 9:
+						document.getElementById('errs').innerHTML += '<div class="err">Invalid CSRF Token. Please try again later.</div>';
 						break;
 					default:
 						document.getElementById('errs').innerHTML += '<div class="err">An unknown error occured. Please try again later.</div>';
