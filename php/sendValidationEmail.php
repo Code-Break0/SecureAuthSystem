@@ -1,6 +1,6 @@
 <?php
 	require_once 'utils.php';
-
+	session_start();
 
 	function sendValidationEmail($email) {
 		$C = connect();
@@ -50,6 +50,6 @@
 	}
 	
 
-	if(isset($_POST['validateEmail'])) {
+	if(isset($_POST['validateEmail']) && isset($_POST['csrf_token']) && validateToken($_POST['csrf_token'])) {
 		echo sendValidationEmail($_POST['validateEmail']);
 	}
