@@ -15,4 +15,5 @@ Check out the youtube playlist here: https://www.youtube.com/playlist?list=PLG5M
 - All passwords are hashed so that even with access to the database attackers could not obtain users passwords (passwords are hashed and salted)
 
 ... Possibly more that I did not think of at the time of writing this
-*** Some features may not have been implemented yet***
+
+***Some features may not have been implemented yet***
