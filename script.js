@@ -30,7 +30,10 @@ function request(url, data, callback) {
 // index.php
 function logout() {
 	request('php/logout.php', false, function(data) {
-		window.location = 'login';
+		console.log(data);
+		if(data === '0') {
+			window.location = 'login';
+		}
 	});
 }
 function deleteAccount() {}
@@ -38,6 +41,7 @@ function deleteAccount() {}
 // login.php
 function login() {
 	request('php/login.php', '#loginForm', function(data) {
+		console.log(data);
 		document.getElementById('errs').innerHTML = "";
 		var transition = document.getElementById('errs').style.transition;
 		document.getElementById('errs').style.transition = "none";
@@ -55,7 +59,7 @@ function login() {
 			case '3':
 				document.getElementById('errs').innerHTML += '<div class="err">You have excedded the max number of login attempts per hour. Try again in an hour.</div>';
 				break;
-			case 4:
+			case '4':
 				document.getElementById('errs').innerHTML += '<div class="err">Your email has not been validated. Please check your email for a validation link or <a href="./validate">click here</a> to send another link</div>';
 				break;
 			default:
@@ -149,6 +153,7 @@ function register() {
 // validateEmail.php
 function sendValidateEmailRequest() {
 	request('php/sendValidationEmail.php', '#validateEmailForm', function(data) {
+		console.log(data);
 		document.getElementById('errs').innerHTML = "";
 		var transition = document.getElementById('errs').style.transition;
 		document.getElementById('errs').style.transition = "none";
