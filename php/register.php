@@ -1,6 +1,5 @@
 <?php
 	require_once 'sendValidationEmail.php';
-	session_start();
 	$errors = [];
 
 
