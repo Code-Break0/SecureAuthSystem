@@ -30,7 +30,6 @@ function request(url, data, callback) {
 // index.php
 function logout() {
 	request('php/logout.php', false, function(data) {
-		console.log(data);
 		if(data === '0') {
 			window.location = 'login';
 		}
@@ -41,7 +40,6 @@ function deleteAccount() {}
 // login.php
 function login() {
 	request('php/login.php', '#loginForm', function(data) {
-		console.log(data);
 		document.getElementById('errs').innerHTML = "";
 		var transition = document.getElementById('errs').style.transition;
 		document.getElementById('errs').style.transition = "none";
@@ -153,7 +151,6 @@ function register() {
 // validateEmail.php
 function sendValidateEmailRequest() {
 	request('php/sendValidationEmail.php', '#validateEmailForm', function(data) {
-		console.log(data);
 		document.getElementById('errs').innerHTML = "";
 		var transition = document.getElementById('errs').style.transition;
 		document.getElementById('errs').style.transition = "none";
