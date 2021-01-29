@@ -35,7 +35,37 @@ function logout() {
 		}
 	});
 }
-function deleteAccount() {}
+function deleteAccount() {
+	request('php/deleteAccount.php', false, function(data) {
+		document.getElementById('errs').innerHTML = "";
+		var transition = document.getElementById('errs').style.transition;
+		document.getElementById('errs').style.transition = "none";
+		document.getElementById('errs').style.opacity = 0;
+		switch(data) {
+			case '0':
+				window.location = 'register';
+				break;
+			case '1':
+				document.getElementById('errs').innerHTML += '<div class="err">Failed to delete account. Please try again later.</div>';
+				break;
+			case '2':
+				document.getElementById('errs').innerHTML += '<div class="err">Failed to connect to database. Please try again later.</div>';
+				break;
+			case '3':
+				document.getElementById('errs').innerHTML += '<div class="err">You are not logged in.</div>';
+				break;
+			case '4':
+				document.getElementById('errs').innerHTML += '<div class="err">Invalid CSRF Token... Nice try</div>';
+				break;
+			default:
+				document.getElementById('errs').innerHTML += '<div class="err">An unknown error occured. Please try again later.</div>';
+		}
+		setTimeout(function() {
+			document.getElementById('errs').style.transition = transition;
+			document.getElementById('errs').style.opacity = 1;
+		}, 10);
+	});
+}
 
 // login.php
 function login() {
