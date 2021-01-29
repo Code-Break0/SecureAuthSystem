@@ -21,7 +21,7 @@
 <body>
 	<div style="text-align: center;">
 		<h1>Secure Site</h1>
-		<div id="errors" class="errorcontainer"></div>
+		<div id="errs" class="errorcontainer"></div>
 		<br><br>
 		<div class="btn" onclick="logout();">Log Out</div>
 		<br><br>
