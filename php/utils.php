@@ -62,7 +62,7 @@
 
 
 	function createToken() {
-		$seed = random_bytes(8);
+		$seed = urlSafeEncode(random_bytes(8));
 		$t = time();
 		$hash = hash_hmac('sha256', session_id() . $seed . $t, CSRF_TOKEN_SECRET, true);
 		return urlSafeEncode($hash . '|' . $seed . '|' . $t);
