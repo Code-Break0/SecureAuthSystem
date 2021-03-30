@@ -1,6 +1,5 @@
 <?php
 	require_once 'config.php';
-	require_once 'emailCreds.php';
 
 	use PHPMailer\PHPMailer\PHPMailer;
 	use PHPMailer\PHPMailer\Exception;
