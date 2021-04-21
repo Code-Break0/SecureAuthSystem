@@ -1,8 +1,8 @@
 <?php
 	require_once 'utils.php';
 	session_start();
-
-	if(isset($_POST['email']) && $_POST['password']) {
+	
+	if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['csrf_token']) && validateToken($_POST['csrf_token'])) {
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 
@@ -14,20 +14,21 @@
 				$user = $res->fetch_assoc();
 				if($user['verified']) {
 					if($user['COUNT(loginattempts.id)'] <= MAX_LOGIN_ATTEMPTS_PER_HOUR) {
-						$id = sqlInsert($C, 'INSERT INTO loginattempts VALUES (NULL, ?, ?, ?)', 'isi', $user['id'], $_SERVER['REMOTE_ADDR'], time());
-						if($id !== -1) {
-							if(password_verify($password, $user['password'])) {
-								// Log user in
-								$_SESSION['loggedin'] = true;
-								$_SESSION['userID'] = $user['id'];
-								echo 0;
-							}
-							else {
-								echo 1;
-							}
+						if(password_verify($password, $user['password'])) {
+							// Log user in
+							$_SESSION['loggedin'] = true;
+							$_SESSION['userID'] = $user['id'];
+							sqlUpdate($C, 'DELETE FROM loginattempts WHERE user=?', 'i', $user['id']);
+							echo 0;
 						}
 						else {
-							echo 2;
+							$id = sqlInsert($C, 'INSERT INTO loginattempts VALUES (NULL, ?, ?, ?)', 'isi', $user['id'], $_SERVER['REMOTE_ADDR'], time());
+							if($id !== -1) {
+								echo 1;
+							}
+							else {
+								echo 2;
+							}
 						}
 					}
 					else {
