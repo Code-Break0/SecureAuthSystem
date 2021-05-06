@@ -22,6 +22,16 @@ h1 {
 	margin: 40px 0;
 }
 
+.hidden {
+	position: absolute;
+	left: -1000%;
+	top: -1000%;
+	height: 0;
+	width: 0;
+	pointer-events: none;
+	opacity: 0;
+}
+
 .formWrapper {
 	height: 100%;
 	width: 100%;
