@@ -4,10 +4,9 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^login/?$ login.php [NC,L]
 RewriteRule ^register/?$ register.php [NC,L]
-RewriteRule ^resetpassword/?$ resetPassword.php [NC,L]
 
 RewriteRule ^validate/?([\d]+)?/?([^/]+)?/?$ validateEmail.php?id=$1&hash=$2 [NC,QSA,L]
-
+RewriteRule ^resetPassword/?([\d]+)?/?([^/]+)?/?$ resetPassword.php?id=$1&hash=$2 [NC,QSA,L]
 
 #Disable Caching for dev
 <IfModule mod_headers.c>
