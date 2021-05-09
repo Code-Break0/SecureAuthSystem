@@ -58,7 +58,7 @@ function deleteAccount() {
 				document.getElementById('errs').innerHTML += '<div class="err">Invalid CSRF Token... Nice try</div>';
 				break;
 			default:
-				document.getElementById('errs').innerHTML += '<div class="err">An unknown error occured. Please try again later.</div>';
+				document.getElementById('errs').innerHTML += '<div class="err">An unknown error occurred. Please try again later.</div>';
 		}
 		setTimeout(function() {
 			document.getElementById('errs').style.transition = transition;
@@ -85,13 +85,13 @@ function login() {
 				document.getElementById('errs').innerHTML += '<div class="err">Failed to connect to database. Please try again later.</div>';
 				break;
 			case '3':
-				document.getElementById('errs').innerHTML += '<div class="err">You have excedded the max number of login attempts per hour. Try again in an hour.</div>';
+				document.getElementById('errs').innerHTML += '<div class="err">You have exceeded the max number of login attempts per hour. Try again in an hour.</div>';
 				break;
 			case '4':
 				document.getElementById('errs').innerHTML += '<div class="err">Your email has not been validated. Please check your email for a validation link or <a href="./validate">click here</a> to send another link</div>';
 				break;
 			default:
-				document.getElementById('errs').innerHTML += '<div class="err">An unknown error occured. Please try again later.</div>';
+				document.getElementById('errs').innerHTML += '<div class="err">An unknown error occurred. Please try again later.</div>';
 		}
 		setTimeout(function() {
 			document.getElementById('errs').style.transition = transition;
@@ -152,7 +152,7 @@ function register() {
 						document.getElementById('errs').innerHTML += '<div class="err">Failed to insert request into database. Please try again later.</div>';
 						break;
 					case 12:
-						document.getElementById('errs').innerHTML += '<div class="err">You have excedded your number of allowed validation requests per day</div>';
+						document.getElementById('errs').innerHTML += '<div class="err">You have exceeded your number of allowed validation requests per day</div>';
 						break;
 					case 13:
 						document.getElementById('errs').innerHTML += '<div class="err">The user with this email is already validated</div>';
@@ -164,12 +164,12 @@ function register() {
 						document.getElementById('errs').innerHTML += '<div class="err">Failed to connect to database. Please try again later.</div>';
 						break;
 					default:
-						document.getElementById('errs').innerHTML += '<div class="err">An unknown error occured. Please try again later.</div>';
+						document.getElementById('errs').innerHTML += '<div class="err">An unknown error occurred. Please try again later.</div>';
 				}
 			}
 		}
 		catch(e) {
-			document.getElementById('errs').innerHTML = '<div class="err">An unknown error occured. Please try again later.</div>';
+			document.getElementById('errs').innerHTML = '<div class="err">An unknown error occurred. Please try again later.</div>';
 		}
 		setTimeout(function() {
 			document.getElementById('errs').style.transition = transition;
@@ -198,7 +198,7 @@ function sendValidateEmailRequest() {
 				document.getElementById('errs').innerHTML += '<div class="err">Failed to insert request into database. Please try again later.</div>';
 				break;
 			case '3':
-				document.getElementById('errs').innerHTML += '<div class="err">You have excedded your number of allowed validation requests per day</div>';
+				document.getElementById('errs').innerHTML += '<div class="err">You have exceeded your number of allowed validation requests per day</div>';
 				break;
 			case '4':
 				document.getElementById('errs').innerHTML += '<div class="err">The user with this email is already validated</div>';
@@ -210,7 +210,7 @@ function sendValidateEmailRequest() {
 				document.getElementById('errs').innerHTML += '<div class="err">Failed to connect to database. Please try again later.</div>';
 				break;
 			default:
-				document.getElementById('errs').innerHTML += '<div class="err">An unknown error occured. Please try again later.</div>';
+				document.getElementById('errs').innerHTML += '<div class="err">An unknown error occurred. Please try again later.</div>';
 		}
 		setTimeout(function() {
 			document.getElementById('errs').style.transition = transition;
@@ -220,5 +220,96 @@ function sendValidateEmailRequest() {
 }
 
 // resetPassword.php
-function passwordResetRequest() {}
-function changePassword() {}
+function passwordResetRequest() {
+	request('php/passwordResetRequest.php', '#resetPasswordForm', function(data) {
+		document.getElementById('errs').innerHTML = "";
+		var transition = document.getElementById('errs').style.transition;
+		document.getElementById('errs').style.transition = "none";
+		document.getElementById('errs').style.opacity = 0;
+
+		switch(data) {
+			case '0':
+				document.getElementById('errs').innerHTML += '<div>An email has been sent if an account with that email exists</div>';
+				document.getElementById('resetPasswordForm').reset();
+				break;
+			case '1':
+				document.getElementById('errs').innerHTML += '<div class="err">Failed to send email. Please try again later.</div>';
+				break;
+			case '2':
+				document.getElementById('errs').innerHTML += '<div class="err">Failed to insert request into database. Please try again later.</div>';
+				break;
+			case '3':
+				document.getElementById('errs').innerHTML += '<div class="err">You have exceeded your number of allowed reset requests per day. Try again later.</div>';
+				break;
+			case '4':
+				document.getElementById('errs').innerHTML += '<div class="err">Failed to connect to database. Please try again later.</div>';
+				break;
+			case '5':
+				document.getElementById('errs').innerHTML += '<div class="err">Invalid CSRF token</div>';
+				break;
+			case '6':
+				document.getElementById('errs').innerHTML += '<div class="err">You must enter an email</div>';
+				break;
+			default:
+				document.getElementById('errs').innerHTML += '<div class="err">An unknown error occurred. Please try again later.</div>';
+		}
+		setTimeout(function() {
+			document.getElementById('errs').style.transition = transition;
+			document.getElementById('errs').style.opacity = 1;
+		}, 10);
+	});
+}
+function changePassword() {
+	request('php/changePassword.php', '#changePasswordForm', function(data) {
+		document.getElementById('errs').innerHTML = "";
+		var transition = document.getElementById('errs').style.transition;
+		document.getElementById('errs').style.transition = "none";
+		document.getElementById('errs').style.opacity = 0;
+		try {
+			data = JSON.parse(data);
+			if(!(data instanceof Array)) {throw Exception('bad data');}
+
+			//Show errors to user
+			for(var i = 0;i < data.length;++i) {
+				switch(data[i]) {
+					case 0:
+						document.getElementById('errs').innerHTML += '<div>Your password has been reset! You can now <a href="./login">login</a></div>';
+						document.getElementById('changePasswordForm').reset();
+						break;
+					case 1:
+					case 2:
+					case 7:
+						document.getElementById('errs').innerHTML += '<div class="err">Invalid password reset request. If this is a mistake send a new request and click the link in the email.</div>';
+						break;
+					case 3:
+						document.getElementById('errs').innerHTML += '<div class="err">Password must contain: <ul><li>At least 8 characters</li><li>At least one lower case letter</li><li>At least one upper case letter</li><li>At least one number</li><li>At least one special character (~?!@#$%^&*)</li></ul></div>';
+						break;
+					case 4:
+						document.getElementById('errs').innerHTML += '<div class="err">Passwords do not match. Please re-enter your confirmed password.</div>';
+						break;
+					case 5:
+						document.getElementById('errs').innerHTML += '<div class="err">Failed to update password in the database. Please try again later.</div>';
+						break;
+					case 6:
+						document.getElementById('errs').innerHTML += '<div class="err">This password reset request has expired. Please send another email.</div>';
+						break;
+					case 8:
+						document.getElementById('errs').innerHTML += '<div class="err">Failed to connect to the database. Please try again later.</div>';
+						break;
+					case 9:
+						document.getElementById('errs').innerHTML += '<div class="err">Invalid CSRF Token. Please try again later.</div>';
+						break;
+					default:
+						document.getElementById('errs').innerHTML += '<div class="err">An unknown error occurred. Please try again later.</div>';
+				}
+			}
+		}
+		catch(e) {
+			document.getElementById('errs').innerHTML = '<div class="err">An unknown error occurred. Please try again later.</div>';
+		}
+		setTimeout(function() {
+			document.getElementById('errs').style.transition = transition;
+			document.getElementById('errs').style.opacity = 1;
+		}, 10);
+	});
+}
