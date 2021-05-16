@@ -18,3 +18,10 @@ Check out the youtube playlist here: https://www.youtube.com/playlist?list=PLG5M
 ... Possibly more that I did not think of at the time of writing this
 
 ***Some features may not have been implemented yet***
+
+
+### How to Use
+1. Download and install either MAMP/XAMPP (alternatively individually download php, mysql, and an apache server if you know what you are doing)
+2. Copy and paste all files into the public directory
+3. Start mysql and apache server services
+4. Done! It should be that easy
