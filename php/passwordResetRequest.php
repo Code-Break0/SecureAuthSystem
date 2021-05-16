@@ -17,7 +17,7 @@
 					// Check if # of requests per day is valid
 					if($user['COUNT(requests.id)'] < MAX_PASSWORD_RESET_REQUESTS_PER_DAY) {
 						// create code & insert into requests database
-						$code = random_bytes(16); # 128 bit code 
+						$code = random_bytes(32); # 256 bit code 
 						$hash = password_hash($code, PASSWORD_DEFAULT);
 						$insertID = sqlInsert($C, 'INSERT INTO requests VALUES (NULL, ?, ?, ?, 1)', 'isi', $user['id'], $hash, time());
 						if($insertID !== -1) {
