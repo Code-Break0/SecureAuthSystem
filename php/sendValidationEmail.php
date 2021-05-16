@@ -12,7 +12,7 @@
 				if($user['verified'] === 0) {
 					if($user['COUNT(requests.id)'] <= MAX_EMAIL_VERIFICATION_REQUESTS_PER_DAY) {
 						//Send validation request
-						$verifyCode = random_bytes(16);
+						$verifyCode = random_bytes(32);
 						$hash = password_hash($verifyCode, PASSWORD_DEFAULT);
 						$requestID = sqlInsert($C, 'INSERT INTO requests VALUES (NULL, ?, ?, ?, 0)', 'isi', $user['id'], $hash, time());
 						if($requestID !== -1) {
