@@ -16,7 +16,7 @@
 						$hash = password_hash($verifyCode, PASSWORD_DEFAULT);
 						$requestID = sqlInsert($C, 'INSERT INTO requests VALUES (NULL, ?, ?, ?, 0)', 'isi', $user['id'], $hash, time());
 						if($requestID !== -1) {
-							if(sendEmail($email, $user['name'], 'Email Verification', '<a href="http://localhost/YouTube/SecureAccountSystem/validate/'.$requestID.'/'.urlSafeEncode($verifyCode).'" />Click this link to verify your email</a>')) {
+							if(sendEmail($email, $user['name'], 'Email Verification', '<a href="' . VALIDATE_EMAIL_ENDPOINT . $requestID . '/' . urlSafeEncode($verifyCode). '" />Click this link to verify your email</a>')) {
 								return 0;
 							}
 							else {
