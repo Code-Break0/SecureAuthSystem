@@ -1,6 +1,5 @@
 <?php 
 	require_once 'php/utils.php';
-	session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
