@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<base href="<?php echo dirname($_SERVER['PHP_SELF']); ?>/" />
 	<meta charset="UTF-8">
 	<meta name="csrf_token" content="<?php echo createToken(); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Reset Password - Secure Site</title>
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="<?php echo dirname($_SERVER['PHP_SELF']) . '/style.css' ?>" />
 </head>
 <body>
 	<?php if(empty($_GET['id']) && empty($_GET['hash'])) { ?>
@@ -60,6 +59,6 @@
 		</div>
 	<?php } ?>
 
-	<script src="script.js"></script>
+	<script src="<?php echo dirname($_SERVER['PHP_SELF']) . '/script.js' ?>"></script>
 </body>
 </html>
