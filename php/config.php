@@ -27,4 +27,5 @@
 	date_default_timezone_set('UTC'); 
 	error_reporting(0);
 	session_set_cookie_params(['samesite' => 'Strict']);
+	session_start();
 	
