@@ -1,6 +1,5 @@
 <?php
 	require_once 'utils.php';
-	session_start();
 	
 	if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['csrf_token']) && validateToken($_POST['csrf_token'])) {
 		$email = $_POST['email'];
