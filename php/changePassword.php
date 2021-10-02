@@ -1,6 +1,5 @@
 <?php
 	require_once 'utils.php';
-	session_start();
 
 
 	// Validate post variables & CSRF token
