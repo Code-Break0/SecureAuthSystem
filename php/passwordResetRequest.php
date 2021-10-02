@@ -22,7 +22,7 @@
 						$insertID = sqlInsert($C, 'INSERT INTO requests VALUES (NULL, ?, ?, ?, 1)', 'isi', $user['id'], $hash, time());
 						if($insertID !== -1) {
 							// Send email with link to user
-							$msg = '<a href="http://localhost/Youtube/SecureAccountSystem/resetpassword/' . $insertID . '/' . urlSafeEncode($code) .'">Click Here to Reset your Password</a>';
+							$msg = '<a href="'. RESET_PASSWORD_ENDPOINT . '/' . $insertID . '/' . urlSafeEncode($code) .'">Click Here to Reset your Password</a>';
 							if(sendEmail($_POST['email'], $user['name'], 'Password Reset', $msg)) {
 								// echo 'An email has been sent if an account with that email exists';
 								echo 0;
