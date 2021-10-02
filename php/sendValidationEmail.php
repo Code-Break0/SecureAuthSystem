@@ -1,6 +1,5 @@
 <?php
 	require_once 'utils.php';
-	session_start();
 
 	function sendValidationEmail($email) {
 		$C = connect();
