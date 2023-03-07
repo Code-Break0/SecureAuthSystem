@@ -22,10 +22,17 @@ Please note this code is not provided so that you can just copy and paste it (al
 ***Some features may not have been implemented yet***
 
 
-### Hot to use
+### How to use
 1. Download and install either MAMP/XAMPP (alternatively individually download php, mysql, and an apache server if you know what you are doing)
 2. Ensure you are using an up to date version of PHP. I tested with version 8 but 7 should work however I have not tested it myself.
 3. Copy and paste all files into the public directory
 4. Modify config.php to match your environment and use case (may have to modify other files as well)
-5. Start mysql and apache server services
+5. Start mysql and apache server services (look below for database structure)
 6. Visit your website and test 
+
+
+### Database Structure
+Database structure defined in [database.sql](database.sql) which you can use to generate the necessary tables within your database. 
+
+
+
