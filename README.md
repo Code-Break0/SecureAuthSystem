@@ -32,7 +32,7 @@ Please note this code is not provided so that you can just copy and paste it (al
 
 
 ### Database Structure
-Database structure defined in [database.sql](database.sql) which you can use to generate the necessary tables within your database. 
+Database structure defined in [tables.sql](tables.sql) which you can use to generate the necessary tables within your database. 
 
 
 
