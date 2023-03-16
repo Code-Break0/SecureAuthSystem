@@ -8,7 +8,7 @@
 	<meta name="csrf_token" content="<?php echo createToken(); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Reset Password - Secure Site</title>
-	<link rel="stylesheet" href="<?php echo dirname($_SERVER['PHP_SELF']) . '/style.css' ?>" />
+	<link rel="stylesheet" href="<?php echo dirname($_SERVER['PHP_SELF']) . '/style.css'; ?>" />
 </head>
 <body>
 	<?php if(empty($_GET['id']) && empty($_GET['hash'])) { ?>
